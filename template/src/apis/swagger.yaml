@@ -1,0 +1,359 @@
+basePath: /api/v1
+definitions:
+  model.Response:
+    properties:
+      error:
+        example: リクエストパラメーターが正しくありません。
+        type: string
+    type: object
+  model.ResponseImage:
+    properties:
+      thumbnailURL:
+        example: http://---.jpg
+        type: string
+      url:
+        example: http://---.jpg
+        type: string
+    type: object
+  model.Tempura:
+    properties:
+      createdAt:
+        example: GENRATE BY SERVER
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      price:
+        type: integer
+      updatedAt:
+        example: GENRATE BY SERVER
+        type: string
+    type: object
+  model.Tempuras:
+    properties:
+      count:
+        type: integer
+      cursor:
+        type: string
+      tempuras:
+        items:
+          $ref: '#/definitions/model.Tempura'
+        type: array
+    type: object
+host: templat-sample-2-server-ogjunttjwq-an.a.run.app
+info:
+  contact: {}
+  description: TemPlatSample
+  license:
+    name: '""'
+  title: TemPlatSample
+  version: "1.0"
+paths:
+  /image:
+    post:
+      consumes:
+        - multipart/form-data
+      description: upload image
+      operationId: uploadImage
+      parameters:
+        - description: image name
+          in: formData
+          name: name
+          required: true
+          type: string
+        - description: save directory
+          in: formData
+          name: dir
+          required: true
+          type: string
+        - description: resize size
+          in: formData
+          name: resize
+          type: integer
+        - description: make thumbnail
+          in: formData
+          name: thumbnail
+          required: true
+          type: boolean
+        - description: thumbnail size
+          in: formData
+          name: thumbnailSize
+          type: integer
+        - description: raw image
+          in: formData
+          name: image
+          required: true
+          type: file
+      produces:
+        - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.ResponseImage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+        - firebase: []
+        - firebase_google: []
+      summary: upload image
+      tags:
+        - image
+  /tempura:
+    post:
+      consumes:
+        - application/json
+      description: create tempura
+      operationId: createTempura
+      parameters:
+        - description: Tempura
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/model.Tempura'
+
+      produces:
+        - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Tempura'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+        - firebase: []
+        - firebase_google: []
+      summary: create tempura
+      tags:
+        - tempura
+  /tempura/{id}:
+    delete:
+      consumes:
+        - application/json
+      description: delete tempura
+      operationId: deleteTempura
+      parameters:
+        - description: TempuraID
+          in: path
+          name: id
+          required: true
+          type: integer
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+        - firebase: []
+        - firebase_google: []
+      summary: delete tempura
+      tags:
+        - tempura
+    get:
+      consumes:
+        - application/json
+      description: get tempura
+      operationId: getTempura
+      parameters:
+        - description: TempuraID
+          in: path
+          name: id
+          required: true
+          type: integer
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Tempura'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+        - firebase: []
+        - firebase_google: []
+      summary: get tempura
+      tags:
+        - tempura
+    patch:
+      consumes:
+        - application/json
+      description: patch tempura
+      operationId: patchTempura
+      parameters:
+        - description: TempuraID
+          in: path
+          name: id
+          required: true
+          type: integer
+        - description: Tempura
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/model.Tempura'
+
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Tempura'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+        - firebase: []
+        - firebase_google: []
+      summary: patch tempura
+      tags:
+        - tempura
+    put:
+      consumes:
+        - application/json
+      description: update tempura
+      operationId: updateTempura
+      parameters:
+        - description: TempuraID
+          in: path
+          name: id
+          required: true
+          type: integer
+        - description: Tempura
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/model.Tempura'
+
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Tempura'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+        - firebase: []
+        - firebase_google: []
+      summary: update tempura
+      tags:
+        - tempura
+  /tempuras:
+    get:
+      consumes:
+        - application/json
+      description: search tempura by search conditions
+      operationId: searchTempura
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Tempuras'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+        - firebase: []
+        - firebase_google: []
+      summary: search tempura
+      tags:
+        - tempura
+  /tempuras/count:
+    get:
+      consumes:
+        - application/json
+      description: count tempura by search conditions
+      operationId: countTempura
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+        - firebase: []
+        - firebase_google: []
+      summary: count tempura
+      tags:
+        - tempura
+schemes:
+  - https
+swagger: "2.0"
