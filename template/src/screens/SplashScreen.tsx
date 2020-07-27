@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
 	appIcon: {
 		resizeMode: 'contain',
 		width: 160,
-		height: 160,
-		borderRadius: 16,
+		height: 160
 	}
 })
